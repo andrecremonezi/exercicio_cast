@@ -1,4 +1,4 @@
-package br.com.cast.turmaformacao.exercicio;
+package br.com.cast.turmaformacao.exercicio.Manager;
 
 import android.app.Application;
 
