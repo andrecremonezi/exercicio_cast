@@ -14,8 +14,7 @@
         android:id="@+id/editTextDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/lbl_description"
-        android:password="true"/>
+        android:hint="@string/lbl_description"/>
 
     <EditText
         android:id="@+id/editTextAmount"

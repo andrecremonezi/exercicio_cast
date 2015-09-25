@@ -24,7 +24,7 @@ public class ProdutoFormActivity extends AppCompatActivity {
     private Button buttonSave;
     private Product product;
 
-    public static final String PARAM_TASK = "PARAM_PROD";
+    public static final String PARAM_TASK = "PARAM_TASK";
 
 
     @Override
@@ -54,7 +54,6 @@ public class ProdutoFormActivity extends AppCompatActivity {
 
     private void bindButtonSave() {
         buttonSave = (Button) findViewById(R.id.buttonAdd);
-
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

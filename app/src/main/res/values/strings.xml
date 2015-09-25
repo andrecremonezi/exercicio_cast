@@ -12,4 +12,17 @@
     <string name="lbl_unitaryValue">Unitary Value</string>
     <string name="msg_required">Field required</string>
     <string name="msg_save_sucessfull">Save sucess</string>
+    <string name="lbl_confirm">Confirm</string>
+    <string name="msg_confirm_delete">confirm delet</string>
+    <string name="lbl_yes">yes</string>
+    <string name="msg_delete_sucessfull">Delet sucess</string>
+    <string name="lbl_no">no</string>
+    <string name="lbl_edit">Edit</string>
+    <string name="lbl_excluir">Excluir</string>
+    <string name="label_name">Name: </string>
+    <string name="label_description">Description: </string>
+    <string name="label_amount">Amount: </string>
+    <string name="label_amountMin">Amount Min: </string>
+    <string name="label_unitary_value">Unitary Value: </string>
+
 </resources>

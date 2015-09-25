@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Controle de Estoque</string>
+    <string name="hello_world">Olá Mundo!</string>
+    <string name="action_settings">Configurações</string>
+    <string name="lbl_add">Adicionar</string>
+    <string name="lbl_name">Nome</string>
+    <string name="lbl_description">Descrição</string>
+    <string name="lbl_amount">Quantidade</string>
+    <string name="lbl_amount_min">Quantidade minima</string>
+    <string name="app_produto">Controle de Estoque</string>
+    <string name="lbl_unitaryValue">Valor unitário</string>
+    <string name="msg_required">Campo requirido</string>
+    <string name="msg_save_sucessfull">Salvo com sucesso</string>
+    <string name="lbl_confirm">Confirmar</string>
+    <string name="msg_confirm_delete">Confirmar delete</string>
+    <string name="lbl_yes">Sim</string>
+    <string name="msg_delete_sucessfull">Deletado com sucesso</string>
+    <string name="lbl_no">Não</string>
+    <string name="lbl_edit">Editar</string>
+    <string name="lbl_excluir">Excluir</string>
+    <string name="label_name">Nome: </string>
+    <string name="label_description">Descrição: </string>
+    <string name="label_amount">Quantidade: </string>
+    <string name="label_amountMin">Quantidade minima: </string>
+    <string name="label_unitary_value">Valor unitário: </string>
+
+</resources>
