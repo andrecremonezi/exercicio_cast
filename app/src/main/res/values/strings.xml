@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Stock Product</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="lbl_add">Add</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_description">Description</string>
+    <string name="lbl_amount">Amount</string>
+    <string name="lbl_amount_min">Amount minimum</string>
+    <string name="app_produto">Stock Product</string>
+    <string name="lbl_unitaryValue">Unitary Value</string>
+    <string name="msg_required">Field required</string>
+    <string name="msg_save_sucessfull">Save sucess</string>
+</resources>

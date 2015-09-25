@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lbl_name" />
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lbl_description"
+        android:password="true"/>
+
+    <EditText
+        android:id="@+id/editTextAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lbl_amount" />
+
+    <EditText
+        android:id="@+id/editTextAmountMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lbl_amount_min"/>
+
+    <EditText
+        android:id="@+id/editTextUnitaryValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lbl_unitaryValue"/>
+
+    <Button
+        android:layout_gravity="right"
+        android:textColor="#ffff"
+        android:layout_marginTop="20dp"
+        android:id="@+id/buttonAdd"
+        android:background="?attr/colorPrimary"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="141dp"
+        android:layout_height="37dp"
+        android:text="@string/lbl_add" />
+</LinearLayout>
