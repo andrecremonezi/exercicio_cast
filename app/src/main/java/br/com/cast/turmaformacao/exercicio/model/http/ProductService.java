@@ -1,13 +1,20 @@
 package br.com.cast.turmaformacao.exercicio.model.http;
 
+import android.app.Application;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.cast.turmaformacao.exercicio.R;
+import br.com.cast.turmaformacao.exercicio.controllers.activities.ProdutoFormActivity;
 import br.com.cast.turmaformacao.exercicio.model.entities.Product;
 
 public class ProductService {
@@ -73,6 +80,37 @@ public class ProductService {
 
         return products;
     }
+
+
+    public static void saveProduct(Product product){
+        try {
+
+            java.net.URL url = new URL(URL);
+            final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
+
+            OutputStream outputStream = conn.getOutputStream();
+
+            new ObjectMapper().writeValue(outputStream, product);
+
+            outputStream.flush();
+            outputStream.close();
+
+            int responseCode = conn.getResponseCode();
+
+            if(responseCode != HttpURLConnection.HTTP_OK){
+                throw new RuntimeException("Error code: " + responseCode);
+            }
+
+            conn.disconnect();
+        } catch (IOException e) {
+            Log.e(ProductService.class.getName(), e.getMessage());
+        }
+
+    }
+
 
 
 }

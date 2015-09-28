@@ -32,7 +32,6 @@ public class ProductBussinessService {
         List<Product> webProducts = ProductService.getProductsWeb();
 
 
-
         for(Product product : webProducts){
 
             Long id = ProductRepository.getIdByWebId(product.getIdWeb());

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +20,12 @@ import java.util.List;
 
 import br.com.cast.turmaformacao.exercicio.R;
 import br.com.cast.turmaformacao.exercicio.controllers.adapters.ProdutoAdapter;
+import br.com.cast.turmaformacao.exercicio.controllers.sync.GetAllProductsFromWebTask;
+import br.com.cast.turmaformacao.exercicio.controllers.sync.ProductInterfaceListerner;
 import br.com.cast.turmaformacao.exercicio.model.entities.Product;
 import br.com.cast.turmaformacao.exercicio.model.services.ProductBussinessService;
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends AppCompatActivity implements ProductInterfaceListerner<Product> {
     private ListView listViewProductList;
     private Product selectedProduct;
     private List<Product> getProducts;
@@ -54,38 +55,6 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
 
-    private class GetProductsWeb extends AsyncTask<Void, Void, Void> {
-
-        ProgressDialog progressDialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(ProductListActivity.this);
-            progressDialog.setMessage("Carregando");
-            progressDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            ProductBussinessService.sincronized();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void avoid) {
-            super.onPostExecute(avoid);
-            progressDialog.dismiss();
-            onUpdateList();
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-    }
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -108,18 +77,17 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
     private void onMenuUpProduct() {
-        new GetProductsWeb().execute();
+        refreshList();
     }
 
     @Override
     protected void onResume() {
-        onUpdateList();
         super.onResume();
+        refreshList();
     }
 
-    private void onUpdateList() {
-        List<Product> values = ProductBussinessService.findAll();
-        listViewProductList.setAdapter(new ProdutoAdapter(this, values));
+    private void onUpdateList(List<Product> lista) {
+        listViewProductList.setAdapter(new ProdutoAdapter(this, lista));
         ProdutoAdapter adapter = (ProdutoAdapter) listViewProductList.getAdapter();
         adapter.notifyDataSetChanged();
     }
@@ -164,7 +132,6 @@ public class ProductListActivity extends AppCompatActivity {
                         ProductBussinessService.delete(selectedProduct);
                         selectedProduct = null;
                         String message = getString(R.string.msg_delete_sucessfull);
-                        onUpdateList();
                         Toast.makeText(ProductListActivity.this, message, Toast.LENGTH_LONG).show();
 
                     }
@@ -175,5 +142,14 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void refreshList() {
+        new GetAllProductsFromWebTask(this,this).execute();
+    }
+
+    @Override
+    public void updateList(List<Product> lista) {
+        onUpdateList(lista);
+    }
 }
 

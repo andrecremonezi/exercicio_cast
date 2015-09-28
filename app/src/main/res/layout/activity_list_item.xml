@@ -11,7 +11,7 @@
         android:layout_marginRight="10dp"
         android:layout_width="100dp"
         android:scaleType="centerInside"
-        android:layout_height="110dp" />
+        android:layout_height="120dp" />
 
 
     <LinearLayout

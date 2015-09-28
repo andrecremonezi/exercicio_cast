@@ -35,6 +35,12 @@
         android:layout_height="wrap_content"
         android:hint="@string/lbl_unitaryValue"/>
 
+    <ImageView
+        android:background="#ffffff"
+        android:id="@+id/imageViewColor"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+
     <Button
         android:layout_gravity="right"
         android:textColor="#ffff"
@@ -45,4 +51,6 @@
         android:layout_width="141dp"
         android:layout_height="37dp"
         android:text="@string/lbl_add" />
+
+
 </LinearLayout>

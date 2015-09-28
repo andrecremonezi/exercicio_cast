@@ -5,12 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.sql.ResultSet;
 
 import br.com.cast.turmaformacao.exercicio.R;
+import br.com.cast.turmaformacao.exercicio.controllers.sync.SaveProductOnWebTask;
 import br.com.cast.turmaformacao.exercicio.model.entities.Product;
+import br.com.cast.turmaformacao.exercicio.model.http.ProductService;
 import br.com.cast.turmaformacao.exercicio.model.services.ProductBussinessService;
 import br.com.cast.turmaformacao.exercicio.util.FormHelper;
 
@@ -21,6 +24,7 @@ public class ProdutoFormActivity extends AppCompatActivity {
     private EditText editTextAmount;
     private EditText editTextAmountMin;
     private EditText editTextUnitaryValue;
+    private View imageViewColor;
     private Button buttonSave;
     private Product product;
 
@@ -62,7 +66,9 @@ public class ProdutoFormActivity extends AppCompatActivity {
 
                 if (!FormHelper.validateRequired(requiredMessage, editTextName, editTextDescription, editTextAmount, editTextAmountMin, editTextUnitaryValue)) {
                     bindProduct();
+                    new SaveProductOnWebTask().execute(product);
                     ProductBussinessService.save(product);
+
                     Toast.makeText(ProdutoFormActivity.this, getString(R.string.msg_save_sucessfull), Toast.LENGTH_LONG).show();
                     ProdutoFormActivity.this.finish();
                 }
@@ -76,11 +82,15 @@ public class ProdutoFormActivity extends AppCompatActivity {
         product.setAmount(Long.parseLong(editTextAmount.getText().toString()));
         product.setAmountMin(Long.parseLong(editTextAmountMin.getText().toString()));
         product.setUnitaryValue(Double.parseDouble(editTextUnitaryValue.getText().toString()));
+        product.setDate(Long.parseLong("11111111111111"));
     }
 
 
 
     private void bindItens() {
+
+        imageViewColor = (ImageView) findViewById(R.id.imageViewImage);
+
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextName.setText(product.getName() == null ? "" : product.getName());
 
