@@ -6,11 +6,13 @@ import android.graphics.PorterDuff;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import br.com.cast.turmaformacao.exercicio.R;
+import br.com.cast.turmaformacao.exercicio.controllers.sync.ProductBitmapTask;
 import br.com.cast.turmaformacao.exercicio.model.entities.Product;
 
 public class ProdutoAdapter extends BaseAdapter {
@@ -45,6 +47,9 @@ public class ProdutoAdapter extends BaseAdapter {
 
         View produtoListItemView = context.getLayoutInflater().inflate(R.layout.activity_list_item, parent, false);
 
+        ImageView imageViewImage = (ImageView) produtoListItemView.findViewById(R.id.imageViewImage);
+        new ProductBitmapTask(produto.getImage(),imageViewImage).execute();
+
         TextView textViewNome = (TextView) produtoListItemView.findViewById(R.id.textViewName);
         textViewNome.setText(produto.getName());
 
@@ -60,6 +65,8 @@ public class ProdutoAdapter extends BaseAdapter {
         TextView textViewUnitaryValue = (TextView) produtoListItemView.findViewById(R.id.textViewUnitaryValue);
         textViewUnitaryValue.setText(String.valueOf(produto.getUnitaryValue()));
 
+        TextView textViewDate = (TextView) produtoListItemView.findViewById(R.id.textViewDate);
+        textViewDate.setText(String.valueOf(produto.getDate()));
 
         return produtoListItemView;
     }
