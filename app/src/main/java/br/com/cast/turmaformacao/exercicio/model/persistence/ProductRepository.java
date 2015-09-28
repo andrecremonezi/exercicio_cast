@@ -69,5 +69,20 @@ public class ProductRepository {
 
     }
 
+    public static Long getIdByWebId(Long webId) {
+
+        DataBaseHelper dataBaseHelper = DataBaseHelper.getIstance();
+        SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
+
+        String where = ProductContract.IDWEB + " = ? ";
+        String params[] = {String.valueOf(webId)};
+
+        Cursor cursor = db.query(ProductContract.TABLE,ProductContract.COLUNS,where,params,null,null,null);
+
+        Product product = ProductContract.getProduct(cursor);
+
+        return product == null ? null : product.getId();
+    }
+
 
 }

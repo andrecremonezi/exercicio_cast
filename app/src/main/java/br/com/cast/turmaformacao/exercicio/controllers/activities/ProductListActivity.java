@@ -2,10 +2,13 @@ package br.com.cast.turmaformacao.exercicio.controllers.activities;
 
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +24,7 @@ import br.com.cast.turmaformacao.exercicio.controllers.adapters.ProdutoAdapter;
 import br.com.cast.turmaformacao.exercicio.model.entities.Product;
 import br.com.cast.turmaformacao.exercicio.model.services.ProductBussinessService;
 
-public class ProductListActivity extends ActionBarActivity {
+public class ProductListActivity extends AppCompatActivity {
     private ListView listViewProductList;
     private Product selectedProduct;
     private List<Product> getProducts;
@@ -51,6 +54,38 @@ public class ProductListActivity extends ActionBarActivity {
     }
 
 
+    private class GetProductsWeb extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(ProductListActivity.this);
+            progressDialog.setMessage("Carregando");
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ProductBussinessService.sincronized();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void avoid) {
+            super.onPostExecute(avoid);
+            progressDialog.dismiss();
+            onUpdateList();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -65,8 +100,15 @@ public class ProductListActivity extends ActionBarActivity {
             case R.id.menu_add:
                 onMenuAddProdutoClick();
                 break;
+            case R.id.menu_up:
+                onMenuUpProduct();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onMenuUpProduct() {
+        new GetProductsWeb().execute();
     }
 
     @Override

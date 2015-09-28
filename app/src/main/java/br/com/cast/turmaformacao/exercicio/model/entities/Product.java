@@ -3,13 +3,39 @@ package br.com.cast.turmaformacao.exercicio.model.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 public class Product implements Parcelable {
+
+    @JsonIgnore
     private Long id;
+
+    @JsonProperty("image")
+    private String image;
+
+    @JsonProperty("id")
+    private Long idWeb;
+
+    @JsonProperty("date")
+    private Long date;
+
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("description")
     private String description;
+
+    @JsonProperty("stock")
     private Long amount;
+
+    @JsonProperty("minimunStock")
     private Long amountMin;
+
+    @JsonProperty("unitaryValue")
     private Double unitaryValue;
+
 
     public Product(){
         super();
@@ -20,12 +46,37 @@ public class Product implements Parcelable {
         readFromParcel(imp);
     }
 
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Long getIdWeb() {
+        return idWeb;
+    }
+
+    public void setIdWeb(Long idWeb) {
+        this.idWeb = idWeb;
+    }
+
+    public Long getDate() {
+        return date;
+    }
+
+    public void setDate(Long date) {
+        this.date = date;
     }
 
     public String getName() {
@@ -60,11 +111,11 @@ public class Product implements Parcelable {
         this.amountMin = amountMin;
     }
 
-    public double getUnitaryValue() {
+    public Double getUnitaryValue() {
         return unitaryValue;
     }
 
-    public void setUnitaryValue(double unitaryValue) {
+    public void setUnitaryValue(Double unitaryValue) {
         this.unitaryValue = unitaryValue;
     }
 
@@ -76,6 +127,9 @@ public class Product implements Parcelable {
         Product product = (Product) o;
 
         if (!id.equals(product.id)) return false;
+        if (!idWeb.equals(product.idWeb)) return false;
+        if (!date.equals(product.date)) return false;
+        if (!image.equals(product.image)) return false;
         if (!name.equals(product.name)) return false;
         if (!description.equals(product.description)) return false;
         if (!amount.equals(product.amount)) return false;
@@ -87,6 +141,9 @@ public class Product implements Parcelable {
     @Override
     public int hashCode() {
         int result = id.hashCode();
+        result = 31 * result + idWeb.hashCode();
+        result = 31 * result + date.hashCode();
+        result = 31 * result + image.hashCode();
         result = 31 * result + name.hashCode();
         result = 31 * result + description.hashCode();
         result = 31 * result + amount.hashCode();
@@ -103,6 +160,9 @@ public class Product implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id == null ? -1 : id);
+        dest.writeLong(idWeb == null ? -1 : idWeb);
+        dest.writeLong(date == null ? -1 : date);
+        dest.writeString(image == null ? "" : image);
         dest.writeString(name == null ? "" : name);
         dest.writeString(description == null ? "" : description);
         dest.writeLong(amount == null ? -1 : amount);
@@ -114,6 +174,15 @@ public class Product implements Parcelable {
 
         id = imp.readLong();
         id = id == -1 ? null : id;
+
+        idWeb = imp.readLong();
+        idWeb = idWeb == -1 ? null : idWeb;
+
+        date = imp.readLong();
+        date = date == -1 ? null : date;
+
+        image = imp.readString();
+        image = image == "" ? null : image;
 
         name = imp.readString();
         name = name == "" ? null : name;
@@ -144,11 +213,13 @@ public class Product implements Parcelable {
         }
     };
 
-
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
+                ", image='" + image + '\'' +
+                ", idWeb=" + idWeb +
+                ", date=" + date +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", amount=" + amount +

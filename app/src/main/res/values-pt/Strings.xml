@@ -24,5 +24,5 @@
     <string name="label_amount">Quantidade: </string>
     <string name="label_amountMin">Quantidade minima: </string>
     <string name="label_unitary_value">Valor unitário: </string>
-
+    <string name="lbl_menu_update">Atualizar</string>
 </resources>

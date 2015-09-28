@@ -15,13 +15,16 @@ public class ProductContract {
 
     public static final String TABLE = "task";
     public static final String ID = "id";
+    public static final String IDWEB = "idweb";
+    public static final String DATE = "date";
+    public static final String IMAGE = "image";
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";
     public static final String AMOUNT = "amount";
     public static final String AMOUNTMIN = "amountmin";
     public static final String UNITARYVALUE = "unitaryvalue";
 
-    public static final String[] COLUNS = {ID, NAME, DESCRIPTION, AMOUNT, AMOUNTMIN, UNITARYVALUE};
+    public static final String[] COLUNS = {ID, IDWEB, DATE, IMAGE, NAME, DESCRIPTION, AMOUNT, AMOUNTMIN, UNITARYVALUE};
 
     public ProductContract(){
         super();
@@ -35,11 +38,14 @@ public class ProductContract {
         create.append(" CREATE TABLE " + TABLE);
         create.append(" ( ");
         create.append(ID + " INTEGER PRIMARY KEY, ");
-        create.append(NAME + " TEXT NOT NULL, ");
-        create.append(DESCRIPTION + " TEXT NOT NULL, ");
-        create.append(AMOUNT + " INT NOT NULL, ");
-        create.append(AMOUNTMIN + " INT NOT NULL, ");
-        create.append(UNITARYVALUE + " FLOAT NOT NULL ");
+        create.append(IDWEB + " INTEGER, ");
+        create.append(DATE + " INTEGER, ");
+        create.append(IMAGE + " TEXT, ");
+        create.append(NAME + " TEXT, ");
+        create.append(DESCRIPTION + " TEXT, ");
+        create.append(AMOUNT + " INTEGER, ");
+        create.append(AMOUNTMIN + " INTEGER, ");
+        create.append(UNITARYVALUE + " FLOAT ");
         create.append(" ); ");
 
         return create.toString();
@@ -49,6 +55,9 @@ public class ProductContract {
         ContentValues values = new ContentValues();
 
         values.put(ProductContract.ID, product.getId());
+        values.put(ProductContract.IDWEB, product.getIdWeb());
+        values.put(ProductContract.DATE, product.getDate());
+        values.put(ProductContract.IMAGE, product.getImage());
         values.put(ProductContract.NAME, product.getName());
         values.put(ProductContract.DESCRIPTION, product.getDescription());
         values.put(ProductContract.AMOUNT, product.getAmount());
@@ -64,6 +73,9 @@ public class ProductContract {
         if (!cursor.isBeforeFirst() || cursor.moveToNext()) {
             Product product = new Product();
             product.setId(cursor.getLong(cursor.getColumnIndex(ProductContract.ID)));
+            product.setIdWeb(cursor.getLong(cursor.getColumnIndex(ProductContract.IDWEB)));
+            product.setDate(cursor.getLong(cursor.getColumnIndex(ProductContract.DATE)));
+            product.setImage(cursor.getString(cursor.getColumnIndex(ProductContract.IMAGE)));
             product.setName(cursor.getString(cursor.getColumnIndex(ProductContract.NAME)));
             product.setDescription(cursor.getString(cursor.getColumnIndex(ProductContract.DESCRIPTION)));
             product.setAmount(cursor.getLong(cursor.getColumnIndex(ProductContract.AMOUNT)));
