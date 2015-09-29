@@ -19,7 +19,7 @@ import br.com.cast.turmaformacao.exercicio.model.entities.Product;
 
 public class ProductService {
 
-    private static final String URL = "http://10.11.21.193:4000/api/v1/products/";
+    private static final String URL = "http://demo3301803.mockable.io/product";
 
     private ProductService(){
         super();

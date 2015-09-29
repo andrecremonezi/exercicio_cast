@@ -2,11 +2,9 @@ package br.com.cast.turmaformacao.exercicio.controllers.activities;
 
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -15,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.List;
 
@@ -29,6 +29,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductInt
     private ListView listViewProductList;
     private Product selectedProduct;
     private List<Product> getProducts;
+    private FloatingActionButton floatingActionButton;
 
 
     @Override
@@ -36,6 +37,20 @@ public class ProductListActivity extends AppCompatActivity implements ProductInt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produto_list);
         bindProductList();
+        bindFloatingButtonAdd();
+    }
+
+    private void bindFloatingButtonAdd() {
+        floatingActionButton = (FloatingActionButton ) findViewById(R.id.floatingButton);
+        floatingActionButton.attachToListView(listViewProductList);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent redirectToTaskList = new Intent(ProductListActivity.this, ProdutoFormActivity.class);
+                startActivity(redirectToTaskList);
+            }
+        });
     }
 
     private void bindProductList() {
@@ -66,9 +81,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductInt
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.menu_add:
-                onMenuAddProdutoClick();
-                break;
             case R.id.menu_up:
                 onMenuUpProduct();
                 break;

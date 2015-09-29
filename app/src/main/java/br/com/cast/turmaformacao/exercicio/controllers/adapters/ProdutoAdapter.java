@@ -53,20 +53,11 @@ public class ProdutoAdapter extends BaseAdapter {
         TextView textViewNome = (TextView) produtoListItemView.findViewById(R.id.textViewName);
         textViewNome.setText(produto.getName());
 
-        TextView textViewDesciption = (TextView) produtoListItemView.findViewById(R.id.textViewDescription);
-        textViewDesciption.setText(produto.getDescription());
-
         TextView textViewAmount = (TextView) produtoListItemView.findViewById(R.id.textViewAmount);
         textViewAmount.setText(produto.getAmount().toString());
 
-        TextView textViewAmountMin = (TextView) produtoListItemView.findViewById(R.id.textViewAmountMin);
-        textViewAmountMin.setText(produto.getAmountMin().toString());
-
         TextView textViewUnitaryValue = (TextView) produtoListItemView.findViewById(R.id.textViewUnitaryValue);
         textViewUnitaryValue.setText(String.valueOf(produto.getUnitaryValue()));
-
-        TextView textViewDate = (TextView) produtoListItemView.findViewById(R.id.textViewDate);
-        textViewDate.setText(String.valueOf(produto.getDate()));
 
         return produtoListItemView;
     }
