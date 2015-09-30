@@ -1,6 +1,5 @@
 package br.com.cast.turmaformacao.exercicio.controllers.activities;
 
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,13 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.melnykov.fab.FloatingActionButton;
-
 import java.util.List;
-
 import br.com.cast.turmaformacao.exercicio.R;
 import br.com.cast.turmaformacao.exercicio.controllers.adapters.ProdutoAdapter;
+import br.com.cast.turmaformacao.exercicio.controllers.sync.DeleteProductTask;
 import br.com.cast.turmaformacao.exercicio.controllers.sync.GetAllProductsFromWebTask;
 import br.com.cast.turmaformacao.exercicio.controllers.sync.ProductInterfaceListerner;
 import br.com.cast.turmaformacao.exercicio.model.entities.Product;
@@ -28,7 +25,6 @@ import br.com.cast.turmaformacao.exercicio.model.services.ProductBussinessServic
 public class ProductListActivity extends AppCompatActivity implements ProductInterfaceListerner<Product> {
     private ListView listViewProductList;
     private Product selectedProduct;
-    private List<Product> getProducts;
     private FloatingActionButton floatingActionButton;
 
 
@@ -44,7 +40,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductInt
         floatingActionButton = (FloatingActionButton ) findViewById(R.id.floatingButton);
         floatingActionButton.attachToListView(listViewProductList);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent redirectToTaskList = new Intent(ProductListActivity.this, ProdutoFormActivity.class);
@@ -56,7 +51,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductInt
     private void bindProductList() {
         listViewProductList = (ListView) findViewById(R.id.listViewProdutoList);
         registerForContextMenu(listViewProductList);
-
         listViewProductList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
@@ -95,8 +89,9 @@ public class ProductListActivity extends AppCompatActivity implements ProductInt
     @Override
     protected void onResume() {
         super.onResume();
-        refreshList();
+        updateListView();
     }
+
 
     private void onUpdateList(List<Product> lista) {
         listViewProductList.setAdapter(new ProdutoAdapter(this, lista));
@@ -104,10 +99,13 @@ public class ProductListActivity extends AppCompatActivity implements ProductInt
         adapter.notifyDataSetChanged();
     }
 
-    private void onMenuAddProdutoClick() {
-        Intent goToNewProdutoActivity = new Intent(ProductListActivity.this, ProdutoFormActivity.class);
-        startActivity(goToNewProdutoActivity);
+    private void updateListView(){
+        List<Product> values = ProductBussinessService.findAll();
+        listViewProductList.setAdapter(new ProdutoAdapter(this, values));
+        ProdutoAdapter adapter = (ProdutoAdapter) listViewProductList.getAdapter();
+        adapter.notifyDataSetChanged();
     }
+
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -141,9 +139,11 @@ public class ProductListActivity extends AppCompatActivity implements ProductInt
                 .setPositiveButton(R.string.lbl_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ProductBussinessService.delete(selectedProduct);
+                        new DeleteProductTask().execute(selectedProduct);
+
                         selectedProduct = null;
                         String message = getString(R.string.msg_delete_sucessfull);
+                        updateListView();
                         Toast.makeText(ProductListActivity.this, message, Toast.LENGTH_LONG).show();
 
                     }

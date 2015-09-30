@@ -19,7 +19,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@drawable/ic_plus_white_18dp"
-        fab:fab_colorNormal="@color/acentColor"
-        fab:fab_colorPressed="@color/colorPressed"
+        fab:fab_colorNormal="@color/primaryColor"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
         fab:fab_colorRipple="@color/divider" />
 </FrameLayout>

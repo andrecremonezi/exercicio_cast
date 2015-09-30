@@ -15,4 +15,10 @@ public class DeleteProductTask extends AsyncTask<Product, Void, Void> {
         ProductBussinessService.delete(product[0]);
         return null;
     }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+
+    }
 }

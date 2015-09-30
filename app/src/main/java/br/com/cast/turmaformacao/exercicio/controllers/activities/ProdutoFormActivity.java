@@ -66,7 +66,7 @@ public class ProdutoFormActivity extends AppCompatActivity {
 
                 if (!FormHelper.validateRequired(requiredMessage, editTextName, editTextDescription, editTextAmount, editTextAmountMin, editTextUnitaryValue)) {
                     bindProduct();
-                    new SaveProductOnWebTask().execute(product);
+                    //new SaveProductOnWebTask().execute(product);
                     ProductBussinessService.save(product);
 
                     Toast.makeText(ProdutoFormActivity.this, getString(R.string.msg_save_sucessfull), Toast.LENGTH_LONG).show();
